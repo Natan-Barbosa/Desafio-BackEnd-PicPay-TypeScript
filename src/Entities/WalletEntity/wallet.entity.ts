@@ -1,17 +1,18 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { walletType } from './wallet.enum';
 import { TransactionEntity } from '../TransactionEntity/transaction.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('wallet_table')
 export class WalletEntity {
   @PrimaryGeneratedColumn('uuid')
-  private id: string;
+  id: string;
 
   @Column({ name: 'fullname', length: 255, nullable: false })
   private fullName: string;
 
   @Column({ name: 'cpf_or_cnpj', unique: true, nullable: false })
-  private cpfOrCnpj: string;
+  cpfOrCnpj: string;
 
   @Column({ name: 'email', unique: true, nullable: false })
   private email: string;
@@ -27,6 +28,7 @@ export class WalletEntity {
   private balance: number;
 
   @Column({ name: 'password', nullable: false })
+  @Exclude()
   private password: string;
 
   @Column({ name: 'wallet_type', type: 'enum', enum: walletType })
