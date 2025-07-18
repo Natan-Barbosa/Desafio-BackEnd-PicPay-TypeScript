@@ -1,4 +1,4 @@
 export enum walletType {
-  USER,
-  SELLER,
+  USER = 'USER',
+  SELLER = 'SELLER',
 }
