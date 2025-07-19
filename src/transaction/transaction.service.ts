@@ -1,0 +1,75 @@
+import {
+  BadRequestException,
+  ForbiddenException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { TransactionDto } from './dto/transaction.dto';
+import { WalletEntity } from 'src/wallet/entity/wallet.entity';
+import { DataSource, Repository } from 'typeorm';
+import { AuthorizationClient } from './client/authorization/authorization.client';
+
+@Injectable()
+export class TransactionService {
+  private readonly logger = new Logger(TransactionService.name);
+
+  constructor(
+    @InjectRepository(WalletEntity)
+    private walletRepository: Repository<WalletEntity>,
+
+    @InjectDataSource()
+    private datasource: DataSource,
+
+    @Inject()
+    private authorizationClient: AuthorizationClient,
+  ) {}
+
+  public async executeTransaction(dto: TransactionDto) {
+    const queryRunner = this.datasource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const sender = await this.walletRepository.findOneBy({
+        id: dto.senderId,
+      });
+      const receiver = await this.walletRepository.findOneBy({
+        id: dto.receiverId,
+      });
+      if (!sender || !receiver) {
+        await queryRunner.rollbackTransaction();
+        throw new BadRequestException('Receiver Or Sender Not Found');
+      }
+      if (sender.isSeller()) {
+        await queryRunner.rollbackTransaction();
+        throw new BadRequestException('Seller Cannot Make Transactions!');
+      }
+      if (!sender.hasSufficientMoneyToTransaction(dto.value)) {
+        await queryRunner.rollbackTransaction();
+        throw new BadRequestException(
+          'You Dont Have Sufficient Money To Transacion, You Balance Is ' +
+            sender.balance,
+        );
+      }
+      await this.authorizationClient.isAuthorized();
+      return 'Okay';
+    } catch (error) {
+      this.logger.error(error);
+      if (
+        error instanceof BadRequestException ||
+        error instanceof UnauthorizedException ||
+        error instanceof ForbiddenException
+      ) {
+        throw error;
+      }
+      await queryRunner.rollbackTransaction();
+      throw new InternalServerErrorException('Internal server error occurred');
+    } finally {
+      await queryRunner.release();
+    }
+  }
+}
