@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WalletModule } from './wallet/wallet.module';
+import { TransactionModule } from './transaction/transaction.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -19,6 +20,7 @@ dotenv.config();
       synchronize: true, //Don't use in produce because it can delete all tables in database. Only use em dev mode
     }),
     WalletModule,
+    TransactionModule,
   ],
 })
 export class AppModule {}
