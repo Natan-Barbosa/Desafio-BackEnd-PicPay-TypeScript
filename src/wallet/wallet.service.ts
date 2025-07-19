@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WalletEntity } from 'src/Entities/WalletEntity/wallet.entity';
 import { Repository } from 'typeorm';
 import { WalletCreateDto } from './dto/wallet.create.dto';
 import { plainToInstance } from 'class-transformer';
+import { WalletNotFoundException } from './exceptions/wallet.not.found.exception';
 
 @Injectable()
 export class WalletService {
@@ -21,7 +22,7 @@ export class WalletService {
   async getWalletById(id: string) {
     const findedWallet = await this.walletRepository.findOneBy({ id });
     if (findedWallet == null) {
-      throw new BadRequestException('Wallet Not Found, Verify The Sent Data');
+      throw new WalletNotFoundException();
     }
     return findedWallet;
   }
