@@ -1,10 +1,11 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WalletEntity } from 'src/Entities/WalletEntity/wallet.entity';
 import { Repository } from 'typeorm';
 import { WalletCreateDto } from './dto/wallet.create.dto';
-import { plainToInstance } from 'class-transformer';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { WalletNotFoundException } from './exceptions/wallet.not.found.exception';
+import { IncreaseBalanceDto } from './dto/wallet.increase.dto';
 
 @Injectable()
 export class WalletService {
@@ -18,6 +19,7 @@ export class WalletService {
   async createWallet(data: WalletCreateDto) {
     const entity = plainToInstance(WalletEntity, data);
     const createdWallet = await this.walletRepository.save(entity);
+    this.logger.log('Wallet Created With Succesful');
     return createdWallet;
   }
 
@@ -27,6 +29,25 @@ export class WalletService {
       this.logger.error('Wallet Not Found Exception Throw');
       throw new WalletNotFoundException();
     }
-    return findedWallet;
+    return instanceToPlain(findedWallet);
+  }
+
+  async IncreaseBalance(dto: IncreaseBalanceDto) {
+    const wallet = await this.walletRepository.findOneBy({
+      cpfOrCnpj: dto.cpfOrCnpj,
+    });
+    if (!wallet) {
+      this.logger.error('Wallet Not Found Exception Throw');
+      throw new WalletNotFoundException();
+    }
+    if (dto.password != wallet.password) {
+      this.logger.error('Unauthorized Exception Throw');
+      throw new UnauthorizedException('UNAUTHORIZED', {
+        description: "You're Not Authorized, Verify Your Credentials",
+      });
+    }
+    wallet.balance = Number(wallet.balance) + Number(dto.value);
+    const savedData = await this.walletRepository.save(wallet);
+    return instanceToPlain(savedData);
   }
 }
