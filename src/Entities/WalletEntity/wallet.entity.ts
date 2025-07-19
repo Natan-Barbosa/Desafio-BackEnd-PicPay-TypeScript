@@ -6,13 +6,13 @@ import { Exclude } from 'class-transformer';
 @Entity('wallet_table')
 export class WalletEntity {
   @PrimaryGeneratedColumn('uuid')
-  private _id: string;
+  id: string;
 
   @Column({ name: 'fullname', length: 255, nullable: false })
   private _fullName: string;
 
   @Column({ name: 'cpf_or_cnpj', unique: true, nullable: false })
-  private _cpfOrCnpj: string;
+  cpfOrCnpj: string;
 
   @Column({ name: 'email', unique: true, nullable: false })
   private _email: string;
@@ -35,26 +35,10 @@ export class WalletEntity {
   private _walletType: walletType;
 
   @OneToMany(() => TransactionEntity, (transaction) => transaction.receiver)
-  private _receivedTransactions: TransactionEntity[];
+  receivedTransactions: TransactionEntity[];
 
   @OneToMany(() => TransactionEntity, (transaction) => transaction.sender)
-  private _sentTransactions: TransactionEntity[];
-
-  /**
-   * Getter id
-   * @return {string}
-   */
-  public get id(): string {
-    return this._id;
-  }
-
-  /**
-   * Setter id
-   * @param {string} value
-   */
-  public set id(value: string) {
-    this._id = value;
-  }
+  sentTransactions: TransactionEntity[];
 
   /**
    * Getter fullName
@@ -70,25 +54,6 @@ export class WalletEntity {
    */
   public set fullName(value: string) {
     this._fullName = value;
-  }
-
-  /**
-   * Getter cpfOrCnpj
-   * @return {string}
-   */
-  public get cpfOrCnpj(): string {
-    return this._cpfOrCnpj;
-  }
-
-  /**
-   * Setter cpfOrCnpj
-   * @param {string} value
-   */
-  public set cpfOrCnpj(value: string) {
-    // if(this._walletType==walletType.SELLER && this._cpfOrCnpj.length!=14){
-
-    // }
-    this._cpfOrCnpj = value;
   }
 
   /**
@@ -153,37 +118,5 @@ export class WalletEntity {
    */
   public set walletType(value: walletType) {
     this._walletType = value;
-  }
-
-  /**
-   * Getter receivedTransactions
-   * @return {TransactionEntity[]}
-   */
-  public get receivedTransactions(): TransactionEntity[] {
-    return this._receivedTransactions;
-  }
-
-  /**
-   * Setter receivedTransactions
-   * @param {TransactionEntity[]} value
-   */
-  public set receivedTransactions(value: TransactionEntity[]) {
-    this._receivedTransactions = value;
-  }
-
-  /**
-   * Getter sentTransactions
-   * @return {TransactionEntity[]}
-   */
-  public get sentTransactions(): TransactionEntity[] {
-    return this._sentTransactions;
-  }
-
-  /**
-   * Setter sentTransactions
-   * @param {TransactionEntity[]} value
-   */
-  public set sentTransactions(value: TransactionEntity[]) {
-    this._sentTransactions = value;
   }
 }
