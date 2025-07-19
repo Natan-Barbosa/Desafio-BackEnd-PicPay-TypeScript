@@ -10,7 +10,7 @@ import { WalletCreateDto } from './dto/wallet.create.dto';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { WalletNotFoundException } from './exceptions/wallet.not.found.exception';
 import { IncreaseBalanceDto } from './dto/wallet.increase.dto';
-import { WalletEntity } from './WalletEntity/wallet.entity';
+import { WalletEntity } from './entity/wallet.entity';
 
 @Injectable()
 export class WalletService {
