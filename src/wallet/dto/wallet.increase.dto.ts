@@ -6,7 +6,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { walletType } from 'src/Entities/WalletEntity/wallet.enum';
+import { walletType } from '../WalletEntity/wallet.enum';
 
 export class IncreaseBalanceDto {
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })

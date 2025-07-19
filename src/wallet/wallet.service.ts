@@ -1,11 +1,11 @@
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { WalletEntity } from 'src/Entities/WalletEntity/wallet.entity';
 import { Repository } from 'typeorm';
 import { WalletCreateDto } from './dto/wallet.create.dto';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { WalletNotFoundException } from './exceptions/wallet.not.found.exception';
 import { IncreaseBalanceDto } from './dto/wallet.increase.dto';
+import { WalletEntity } from './WalletEntity/wallet.entity';
 
 @Injectable()
 export class WalletService {

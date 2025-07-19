@@ -1,5 +1,5 @@
-import { walletType } from 'src/Entities/WalletEntity/wallet.enum';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
+import { walletType } from '../WalletEntity/wallet.enum';
 
 export class WalletCreateDto {
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })

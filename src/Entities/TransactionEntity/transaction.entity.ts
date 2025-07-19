@@ -1,5 +1,5 @@
+import { WalletEntity } from 'src/wallet/WalletEntity/wallet.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { WalletEntity } from '../WalletEntity/wallet.entity';
 
 @Entity('transaction_table')
 export class TransactionEntity {
