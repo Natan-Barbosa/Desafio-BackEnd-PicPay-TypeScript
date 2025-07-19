@@ -3,19 +3,19 @@ import { walletType } from '../WalletEntity/wallet.enum';
 
 export class WalletCreateDto {
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })
-  private fullName: string;
+  fullName: string;
 
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })
-  private cpfOrCnpj: string;
+  cpfOrCnpj: string;
 
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })
   @IsEmail()
-  private email: string;
+  email: string;
 
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })
-  private walletType: walletType;
+  walletType: walletType;
 
   @IsNotEmpty({ message: 'Field Cannot Be Empty' })
   @Length(8, 64, { message: 'Password Must Between 8 and 64 characters ' })
-  private password: string;
+  password: string;
 }
