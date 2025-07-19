@@ -1,4 +1,9 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { WalletCreateDto } from './dto/wallet.create.dto';
@@ -18,6 +23,13 @@ export class WalletService {
 
   async createWallet(data: WalletCreateDto) {
     const entity = plainToInstance(WalletEntity, data);
+    const walletAlreadyExists = await this.walletRepository.existsBy({
+      cpfOrCnpj: data.cpfOrCnpj,
+    });
+    if (walletAlreadyExists) {
+      throw new BadRequestException('The User Already Exists');
+    }
+
     const createdWallet = await this.walletRepository.save(entity);
     this.logger.log('Wallet Created With Succesful');
     return createdWallet;
