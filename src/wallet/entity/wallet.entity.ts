@@ -40,6 +40,20 @@ export class WalletEntity {
   @OneToMany(() => TransactionEntity, (transaction) => transaction.sender)
   sentTransactions: TransactionEntity[];
 
+  public isSeller() {
+    return this._walletType == walletType.SELLER;
+  }
+
+  public hasSufficientMoneyToTransaction(transactionValue: number) {
+    const balance = this._balance;
+    const transaction = transactionValue;
+
+    if (balance == 0 || balance < transaction) {
+      return false;
+    }
+    return true;
+  }
+
   /**
    * Getter fullName
    * @return {string}
