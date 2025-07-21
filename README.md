@@ -83,10 +83,10 @@ DB_HOST=localhost
 DB_PORT=3306
 DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
-DB_DATABASE=picpay_challenge
+DB_DATABASE=picpaydb
 
-# Outras configurações necessárias
-API_PORT=3000
+# Porta da Api
+PORT=3000
 ```
 
 ### Docker
