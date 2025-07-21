@@ -34,10 +34,14 @@ export class WalletEntity {
   @Column({ name: 'wallet_type', type: 'enum', enum: walletType })
   private _walletType: walletType;
 
-  @OneToMany(() => TransactionEntity, (transaction) => transaction.receiver)
+  @OneToMany(() => TransactionEntity, (transaction) => transaction.receiver, {
+    cascade: true,
+  })
   receivedTransactions: TransactionEntity[];
 
-  @OneToMany(() => TransactionEntity, (transaction) => transaction.sender)
+  @OneToMany(() => TransactionEntity, (transaction) => transaction.sender, {
+    cascade: true,
+  })
   sentTransactions: TransactionEntity[];
 
   public increaseBalance(value: number) {
