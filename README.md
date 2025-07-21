@@ -48,8 +48,8 @@ src/
 1. Clone o repositório:
 
 ```bash
-git clone <url-do-repositorio>
-cd picpay-backend-challenge
+git clone git@github.com:Natan-Barbosa/Desafio-BackEnd-PicPay-TypeScript.git
+cd Desafio-BackEnd-PicPay-TypeScript
 ```
 
 2. Instale as dependências:
