@@ -13,6 +13,7 @@ import { WalletEntity } from 'src/wallet/entity/wallet.entity';
 import { DataSource, Repository } from 'typeorm';
 import { AuthorizationClient } from './client/authorization/authorization.client';
 import { NotificationClient } from './client/notification/notification.client';
+import { TransactionEntity } from './transaction.entity';
 
 @Injectable()
 export class TransactionService {
@@ -60,6 +61,23 @@ export class TransactionService {
         );
       }
       await this.authorizationClient.isAuthorized();
+
+      const transaction = new TransactionEntity();
+      transaction.receiver = receiver;
+      transaction.sender = sender;
+      transaction.timeStamp = new Date();
+      transaction.value = dto.value;
+
+      //Type orm não inicializa um array vazio automaticamente na entidade
+      if (!sender.sentTransactions) {
+        sender.sentTransactions = [];
+      }
+      if (!receiver.receivedTransactions) {
+        receiver.receivedTransactions = [];
+      }
+
+      sender.sentTransactions.push(transaction);
+      receiver.receivedTransactions.push(transaction);
 
       sender.decreaseBalance(dto.value);
       receiver.increaseBalance(dto.value);
