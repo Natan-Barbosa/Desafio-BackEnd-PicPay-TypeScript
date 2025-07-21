@@ -12,6 +12,7 @@ import { TransactionDto } from './dto/transaction.dto';
 import { WalletEntity } from 'src/wallet/entity/wallet.entity';
 import { DataSource, Repository } from 'typeorm';
 import { AuthorizationClient } from './client/authorization/authorization.client';
+import { NotificationClient } from './client/notification/notification.client';
 
 @Injectable()
 export class TransactionService {
@@ -26,6 +27,9 @@ export class TransactionService {
 
     @Inject()
     private authorizationClient: AuthorizationClient,
+
+    @Inject()
+    private notificationClient: NotificationClient,
   ) {}
 
   public async executeTransaction(dto: TransactionDto) {
@@ -56,7 +60,17 @@ export class TransactionService {
         );
       }
       await this.authorizationClient.isAuthorized();
-      return 'Okay';
+
+      sender.decreaseBalance(dto.value);
+      receiver.increaseBalance(dto.value);
+
+      const savedSender = await this.walletRepository.save(sender);
+      await this.walletRepository.save(receiver);
+      this.notificationClient.notify();
+      return (
+        'Transaction Realized With Succesful, You Current Balance Is: ' +
+        savedSender.balance
+      );
     } catch (error) {
       this.logger.error(error);
       if (
