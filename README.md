@@ -1,98 +1,190 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# PicPay Backend Challenge
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto é uma implementação do desafio de backend do PicPay, desenvolvido utilizando NestJS como framework principal e MySQL como banco de dados.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Sobre o Projeto
 
-## Description
+O sistema implementa uma API para transações financeiras entre carteiras digitais, incluindo validação de transações e notificações. A arquitetura segue os padrões do NestJS com separação clara de responsabilidades entre módulos.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🏗️ Estrutura do Projeto
 
-## Project setup
-
-```bash
-$ pnpm install
+```
+src/
+├── config/           # Arquivos de configuração
+├── transaction/      # Módulo de transações
+│   ├── client/       # Clientes para APIs externas (autorização e notificação)
+│   ├── dto/          # Data Transfer Objects
+│   ├── entity/       # Entidades do banco de dados
+│   ├── exceptions/   # Exceções customizadas
+│   └── ...          # Controller, Service, Module e testes
+├── wallet/           # Módulo de carteiras
+│   ├── dto/          # Data Transfer Objects
+│   ├── entity/       # Entidades do banco de dados
+│   ├── exceptions/   # Exceções customizadas
+│   └── ...          # Controller, Service, Module e testes
+└── main.ts          # Arquivo principal da aplicação
 ```
 
-## Compile and run the project
+## 🚀 Tecnologias Utilizadas
+
+### Dependências Principais
+
+- **NestJS** - Framework Node.js progressivo
+- **TypeORM** - ORM para TypeScript/JavaScript
+- **MySQL2** - Driver para MySQL
+- **Axios** - Cliente HTTP para requisições
+- **Class Validator** - Validação de dados
+- **Class Transformer** - Transformação de objetos
+
+### Dependências de Desenvolvimento
+
+- **Jest** - Framework de testes
+- **ESLint** - Linter para JavaScript/TypeScript
+- **Prettier** - Formatador de código
+- **TypeScript** - Superset tipado do JavaScript
+
+## 📦 Instalação
+
+1. Clone o repositório:
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+git clone <url-do-repositorio>
+cd picpay-backend-challenge
 ```
 
-## Run tests
+2. Instale as dependências:
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+3. Configure as variáveis de ambiente:
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+cp .env.example .env
+# Edite o arquivo .env com suas configurações
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4. Inicie o banco de dados com Docker:
 
-## Resources
+```bash
+docker-compose up -d
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🔧 Configuração
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Variáveis de Ambiente
 
-## Support
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```env
+# Configurações do banco de dados
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+DB_DATABASE=picpay_challenge
 
-## Stay in touch
+# Outras configurações necessárias
+API_PORT=3000
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Docker
 
-## License
+O projeto inclui configuração Docker para o banco de dados MySQL. Execute:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+docker-compose up -d
+```
+
+## 🏃‍♂️ Executando a Aplicação
+
+### Desenvolvimento
+
+```bash
+npm run start:dev
+```
+
+### Produção
+
+```bash
+npm run build
+npm run start:prod
+```
+
+### Debug
+
+```bash
+npm run start:debug
+```
+
+## 🧪 Testes
+
+### Executar todos os testes
+
+```bash
+npm run test
+```
+
+### Executar testes em modo watch
+
+```bash
+npm run test:watch
+```
+
+### Executar testes com coverage
+
+```bash
+npm run test:cov
+```
+
+### Executar testes e2e
+
+```bash
+npm run test:e2e
+```
+
+## 📝 Scripts Disponíveis
+
+- `npm run build` - Compila o projeto
+- `npm run format` - Formata o código com Prettier
+- `npm run start` - Inicia a aplicação
+- `npm run start:dev` - Inicia em modo desenvolvimento
+- `npm run start:debug` - Inicia em modo debug
+- `npm run start:prod` - Inicia em modo produção
+- `npm run lint` - Executa o linter
+- `npm run test` - Executa os testes
+- `npm run test:watch` - Executa os testes em modo watch
+- `npm run test:cov` - Executa os testes com cobertura
+- `npm run test:debug` - Executa os testes em modo debug
+- `npm run test:e2e` - Executa os testes end-to-end
+
+## 🏛️ Arquitetura
+
+### Módulos Principais
+
+#### Transaction Module
+
+- **Controller**: Endpoints para gerenciar transações
+- **Service**: Lógica de negócio das transações
+- **Entity**: Modelo da entidade Transaction
+- **DTO**: Objetos de transferência de dados
+- **Client**: Integrações com APIs externas de autorização e notificação
+
+#### Wallet Module
+
+- **Controller**: Endpoints para gerenciar carteiras
+- **Service**: Lógica de negócio das carteiras
+- **Entity**: Modelo da entidade Wallet
+- **DTO**: Objetos de transferência de dados
+- **Exceptions**: Exceções customizadas do módulo
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 👨‍💻 Autor
+
+**Natan Barbosa**
+
+- GitHub: [https://github.com/Natan-Barbosa](https://github.com/Natan-Barbosa)
