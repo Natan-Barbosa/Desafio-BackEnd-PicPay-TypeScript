@@ -40,6 +40,14 @@ export class WalletEntity {
   @OneToMany(() => TransactionEntity, (transaction) => transaction.sender)
   sentTransactions: TransactionEntity[];
 
+  public increaseBalance(value: number) {
+    this._balance = Number(this._balance) + Number(value);
+  }
+
+  public decreaseBalance(value: number) {
+    this._balance = Number(this._balance) - Number(value);
+  }
+
   public isSeller() {
     return this._walletType == walletType.SELLER;
   }
