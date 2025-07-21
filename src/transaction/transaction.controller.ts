@@ -8,6 +8,6 @@ export class TransactionController {
 
   @Post()
   public async executeTransaction(@Body() body: TransactionDto) {
-    await this.transactionService.executeTransaction(body);
+    return await this.transactionService.executeTransaction(body);
   }
 }
