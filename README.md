@@ -35,6 +35,7 @@ src/
 - **Axios** - Cliente HTTP para requisições
 - **Class Validator** - Validação de dados
 - **Class Transformer** - Transformação de objetos
+- **Swagger** - Documentação automática da API
 
 ### Dependências de Desenvolvimento
 
@@ -117,6 +118,20 @@ npm run start:prod
 ```bash
 npm run start:debug
 ```
+
+## 📚 Documentação da API
+
+A aplicação possui documentação automática gerada com **Swagger**. Após iniciar a aplicação, você pode acessar a documentação interativa através da seguinte URL:
+
+**🔗 [http://localhost:3000/api](http://localhost:3000/api)**
+
+A documentação inclui:
+
+- Todos os endpoints disponíveis
+- Estrutura de dados de entrada e saída
+- Códigos de resposta HTTP
+- Interface interativa para testar os endpoints
+- Exemplos de requisições e respostas
 
 ## 🧪 Testes
 
