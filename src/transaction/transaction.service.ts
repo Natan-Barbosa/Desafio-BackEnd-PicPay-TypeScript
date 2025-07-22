@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { TransactionDto } from './dto/transaction.dto';
-import { WalletEntity } from 'src/wallet/entity/wallet.entity';
+import { WalletEntity } from '../wallet/entity/wallet.entity';
 import { DataSource, Repository } from 'typeorm';
 import { AuthorizationClient } from './client/authorization/authorization.client';
 import { NotificationClient } from './client/notification/notification.client';
