@@ -1,4 +1,4 @@
-import { WalletEntity } from 'src/wallet/entity/wallet.entity';
+import { WalletEntity } from '../wallet/entity/wallet.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('transaction_table')

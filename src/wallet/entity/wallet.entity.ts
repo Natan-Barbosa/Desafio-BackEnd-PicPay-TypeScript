@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { walletType } from './wallet.enum';
 import { Exclude } from 'class-transformer';
-import { TransactionEntity } from 'src/transaction/transaction.entity';
+import { TransactionEntity } from '../../transaction/transaction.entity';
 
 @Entity('wallet_table')
 export class WalletEntity {
