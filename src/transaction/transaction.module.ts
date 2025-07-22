@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { TransactionController } from './transaction.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { WalletEntity } from 'src/wallet/entity/wallet.entity';
+import { WalletEntity } from '../wallet/entity/wallet.entity';
 import { AuthorizationModule } from './client/authorization/authorization.module';
 import { NotificationModule } from './client/notification/notification.module';
 
