@@ -196,7 +196,7 @@ npm run test:e2e
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Este projeto foi desenvolvido como parte de um desafio técnico.
 
 ## 👨‍💻 Autor
 
